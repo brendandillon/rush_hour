@@ -13,7 +13,7 @@ Capybara.app = RushHour::Server
 
 module TestHelpers
   def setup
-    DatabaseCleaner.strategy :transaction
+    DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.start
   end
 
