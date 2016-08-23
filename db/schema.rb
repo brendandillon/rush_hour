@@ -11,23 +11,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823193111) do
+ActiveRecord::Schema.define(version: 20160823233226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "ips", force: :cascade do |t|
+    t.text     "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "payload_requests", force: :cascade do |t|
-    t.text     "url"
-    t.datetime "requested_at"
     t.integer  "responded_in"
-    t.text     "referred_by"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.text     "requested_at"
+    t.integer  "url_id"
+    t.integer  "referred_by_id"
+    t.integer  "request_type_id"
+    t.integer  "user_agent_id"
+    t.integer  "resolution_id"
+    t.integer  "ip_id"
+  end
+
+  create_table "request_types", force: :cascade do |t|
     t.text     "request_type"
-    t.text     "user_agent"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "resolutions", force: :cascade do |t|
     t.integer  "resolution_width"
     t.integer  "resolution_height"
-    t.text     "ip"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+  end
+
+  create_table "urls", force: :cascade do |t|
+    t.text     "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_agents", force: :cascade do |t|
+    t.text     "user_agent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

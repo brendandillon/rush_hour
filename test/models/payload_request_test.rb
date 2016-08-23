@@ -32,8 +32,8 @@ class PayloadRequestTest < Minitest::Test
 
   def test_it_has_a_requested_at_time
     pr = create_payload_request
-
-    assert_equal Time.new(2013, 02, 17, 04, 38, 28, "-00:00"), pr.requested_at
+    result = "2013-02-16 21:38:28 -0700"
+    assert_equal result, pr.requested_at
   end
 
   def test_it_has_a_responded_in_value
