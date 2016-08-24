@@ -12,5 +12,10 @@ class UserAgentTest < Minitest::Test
     assert_equal result, ua.user_agent
   end
 
+  def test_validates_browser
+  end
+
+  def test_validates_os
+  end
 
 end

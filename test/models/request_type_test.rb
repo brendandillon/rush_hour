@@ -56,4 +56,10 @@ class RequestTypeTest < Minitest::Test
     assert_equal "PUT", RequestType.most_frequent_type
   end
 
+  def test_validates_verb
+    verb = RequestType.create(
+    verb:"PUT"
+    )
+    assert_equal true, verb.valid?
+  end
 end

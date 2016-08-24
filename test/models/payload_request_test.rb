@@ -43,6 +43,48 @@ class PayloadRequestTest < Minitest::Test
     refute pr.valid?
   end
 
+  def test_validates_url_id
+    pr = PayloadRequest.create(
+    responded_in:37,
+    )
+    refute pr.valid?
+  end
+
+  def test_validates_referred_by_id
+    pr = PayloadRequest.create(
+    responded_in:37,
+    )
+    refute pr.valid?
+  end
+
+  def test_validates_request_type_id
+    pr = PayloadRequest.create(
+    responded_in:37,
+    )
+    refute pr.valid?
+  end
+
+  def test_validates_user_agent_id
+    pr = PayloadRequest.create(
+    responded_in:37,
+    )
+    refute pr.valid?
+  end
+
+  def test_validates_resolution_id
+    pr = PayloadRequest.create(
+    responded_in:37,
+    )
+    refute pr.valid?
+  end
+
+  def test_validates_ip_id
+    pr = PayloadRequest.create(
+    responded_in:37,
+    )
+    refute pr.valid?
+  end
+
   def test_avg_response_time_all_requests
     PayloadRequest.create(
     requested_at:"2013-02-16 21:38:28 -0700",
