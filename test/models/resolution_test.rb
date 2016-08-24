@@ -19,5 +19,17 @@ class ResolutionTest < Minitest::Test
     assert_equal 1280,resolutions.resolution_height
   end
 
+  def test_validates_resolution_width
+    resolutions = Resolution.create(
+    resolution_height:"1280")
+    refute resolutions.valid?
+  end
+
+  def test_validates_resolution_height
+    resolutions = Resolution.create(
+    resolution_width:"1920")
+    refute resolutions.valid?
+  end
+
 
 end
