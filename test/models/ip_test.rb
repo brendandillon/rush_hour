@@ -11,5 +11,16 @@ class IPTest < Minitest::Test
     assert_equal "63.29.38.211", ips.address
   end
 
+  def test_address_must_be_unique
+    ip = IP.create(
+      address:"63.29.38.211"
+    )
+    other_ip = IP.create(
+      address:"63.29.38.211"
+    )
+
+    refute other_ip.save
+  end
+
 
 end

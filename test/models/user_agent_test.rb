@@ -12,5 +12,18 @@ class UserAgentTest < Minitest::Test
     assert_equal result, ua.user_agent
   end
 
+  def test_a_user_agent_is_unique
+    ua = UserAgent.create(
+      browser: "Chrome/24.0.1309.0",
+      operating_system: "Macintosh; Intel Mac OS X 10_8_2"
+    )
+    other_ua = UserAgent.create(
+      browser: "Chrome/24.0.1309.0",
+      operating_system: "Macintosh; Intel Mac OS X 10_8_2"
+    )
+    
+    refute other_ua.save
+  end
+
 
 end
