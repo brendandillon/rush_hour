@@ -27,7 +27,7 @@ class PayloadRequestTest < Minitest::Test
   def test_it_has_a_url
     pr = create_payload_request
 
-    assert_equal "http://jumpstartlab.com/blog", pr.url
+    assert_equal "http://jumpstartlab.com/blog", pr.url_id.url
   end
 
   def test_it_has_a_requested_at_time
