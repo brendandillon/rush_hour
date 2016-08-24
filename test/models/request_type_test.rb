@@ -5,53 +5,53 @@ class RequestTypeTest < Minitest::Test
 
   def test_it_has_a_request_type
     reqtype = RequestType.create(
-    request_type:"GET"
+    ver:"GET"
     )
 
-    assert_equal "GET", reqtype.request_type
+    assert_equal "GET", reqtype.verb
   end
 
   def test_most_frequent_request_type
     RequestType.create(
-    request_type:"GET"
+    verb:"GET"
     )
     RequestType.create(
-    request_type:"GET"
+    verb:"GET"
     )
     RequestType.create(
-    request_type:"PUT"
+    verb:"PUT"
     )
     assert_equal "GET", RequestType.most_frequent_type
   end
 
   def test_most_frequent_request_type_2
     RequestType.create(
-    request_type:"PUT"
+    verb:"PUT"
     )
     RequestType.create(
-    request_type:"PUT"
+    verb:"PUT"
     )
     RequestType.create(
-    request_type:"GET"
+    verb:"GET"
     )
     RequestType.create(
-    request_type:"GET"
+    verb:"GET"
     )
     assert_equal "GET", RequestType.most_frequent_type
   end
 
   def test_most_frequent_request_type_3
     RequestType.create(
-    request_type:"PUT"
+    verb:"PUT"
     )
     RequestType.create(
-    request_type:"GET"
+    verb:"GET"
     )
     RequestType.create(
-    request_type:"PUT"
+    verb:"PUT"
     )
     RequestType.create(
-    request_type:"PUT"
+    verb:"PUT"
     )
     assert_equal "PUT", RequestType.most_frequent_type
   end
