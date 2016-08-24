@@ -22,5 +22,12 @@ class IPTest < Minitest::Test
     refute other_ip.save
   end
 
+  def test_validates_address
+    ips = IP.create(
+    address:"63.29.38.211"
+    )
+    assert_equal true, ips.valid?
+  end
+
 
 end
