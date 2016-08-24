@@ -17,12 +17,6 @@ class PayloadRequestTest < Minitest::Test
     assert PayloadRequest.exists?(1)
   end
 
-  def test_it_has_a_url
-    pr = create_payload_request
-
-    assert_equal "http://jumpstartlab.com/blog", pr.url_id.url
-  end
-
   def test_it_has_a_requested_at_time
     pr = create_payload_request
     result = "2013-02-16 21:38:28 -0700"
@@ -35,53 +29,53 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 37, pr.responded_in
   end
 
-  def test_it_has_a_referred_by_value
-    pr = create_payload_request
-
-    assert_equal "http://jumpstartlab.com", pr.referred_by
-  end
-
-  def test_it_has_a_request_type
-    pr = create_payload_request
-
-    assert_equal "GET", pr.request_type
-  end
-
-  def test_it_has_a_user_agent
-    pr = create_payload_request
-
-    assert_equal "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17", pr.user_agent
-  end
-
-  def test_it_has_a_resolution_width
-    pr = create_payload_request
-
-    assert_equal 1920, pr.resolution_width
-  end
-
-  def test_it_has_a_resolution_height
-    pr = create_payload_request
-
-    assert_equal 1280, pr.resolution_height
-  end
-
-  def test_it_has_an_ip_address
-    pr = create_payload_request
-
-    assert_equal "63.29.38.211", pr.ip
-  end
-
-  def test_validates_url
+  def test_validates_responded_in
     pr = PayloadRequest.create(
     requested_at:"2013-02-16 21:38:28 -0700",
     )
     refute pr.valid?
   end
 
-  def test_validates_user_agent
+  def test_validates_requested_at
     pr = PayloadRequest.create(
     responded_in:37,
     )
     refute pr.valid?
+  end
+
+  def test_avg_response_time_all_requests
+    PayloadRequest.create(
+    requested_at:"2013-02-16 21:38:28 -0700",
+    responded_in:37,
+    )
+    PayloadRequest.create(
+    requested_at:"2013-02-16 21:38:30 -0700",
+    responded_in:46,
+    )
+    assert_equal 41.5, PayloadRequest.avg_response_all
+  end
+
+  def test_max_response_time_all_requests
+    PayloadRequest.create(
+    requested_at:"2013-02-16 21:38:28 -0700",
+    responded_in:37,
+    )
+    PayloadRequest.create(
+    requested_at:"2013-02-16 21:38:30 -0700",
+    responded_in:46,
+    )
+    assert_equal 46, PayloadRequest.max_response_all
+  end
+
+  def test_min_response_time_all_requests
+    PayloadRequest.create(
+    requested_at:"2013-02-16 21:38:28 -0700",
+    responded_in:37,
+    )
+    PayloadRequest.create(
+    requested_at:"2013-02-16 21:38:30 -0700",
+    responded_in:46,
+    )
+    assert_equal 37, PayloadRequest.min_response_all
   end
 end
