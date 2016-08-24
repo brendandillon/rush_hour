@@ -5,7 +5,7 @@ class RequestTypeTest < Minitest::Test
 
   def test_it_has_a_request_type
     reqtype = RequestType.create(
-    ver:"GET"
+    verb:"GET"
     )
 
     assert_equal "GET", reqtype.verb
