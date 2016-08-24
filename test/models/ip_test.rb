@@ -1,8 +1,9 @@
 require_relative "../test_helper"
 
 class IPTest < Minitest::Test
+  include TestHelpers
 
-  def test_it_has_a_url
+  def test_it_has_a_ips
     ips = IP.create(
     address:"63.29.38.211"
     )
