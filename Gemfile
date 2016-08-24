@@ -13,6 +13,7 @@ group :development, :test do
   gem 'launchy'
   gem 'rack-test'
   gem 'pry'
+  gem 'rake'
 end
 
 group :test do
