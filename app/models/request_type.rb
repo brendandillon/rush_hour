@@ -4,7 +4,7 @@ class RequestType < ActiveRecord::Base
   validates :verb, uniqueness: true
 
   def self.most_frequent_type
-    RequestType.group(:request_type).count.max_by { |key, value| value }.first
+    RequestType.group(:verb).count.max_by { |key, value| value }.first
   end
 
 end
