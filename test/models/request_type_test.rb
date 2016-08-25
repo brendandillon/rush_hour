@@ -72,4 +72,6 @@ class RequestTypeTest < Minitest::Test
     )
     assert_equal true, verb.valid?
   end
+
+
 end

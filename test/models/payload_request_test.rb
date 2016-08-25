@@ -128,4 +128,26 @@ class PayloadRequestTest < Minitest::Test
     )
     assert_equal 37, PayloadRequest.min_response_all
   end
+
+  def test_it_fills_the_tables
+    to_fill = {
+      url:"http://jumpstartlab.com/blog",
+      requested_at:"2013-02-16 21:38:28 -0700",
+      responded_in:37,
+      referred_by:"http://jumpstartlab.com",
+      request_type:"GET",
+      user_agent:"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      resolution_width:"1920",
+      resolution_height:"1280",
+      ip:"63.29.38.211"
+    }
+    pr = PayloadRequest.fill_tables(to_fill)
+    assert_equal "http://jumpstartlab.com/blog", URL.find(pr.url_id).address
+    assert_equal "63.29.38.211", IP.find(pr.ip_id).address
+    assert_equal "http://jumpstartlab.com", ReferredBy.find(pr.referred_by_id).address
+    assert_equal "GET", RequestType.find(pr.request_type_id).verb
+    assert_equal 1920, Resolution.find(pr.resolution_id).resolution_width
+    assert_equal 1280, Resolution.find(pr.resolution_id).resolution_height
+    # do the user agent thing
+  end
 end
