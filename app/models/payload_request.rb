@@ -24,21 +24,24 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.fill_tables(data)
+    user_agent = UserAgent.parse(data[:user_agent])
     ip_from_data = IP.find_or_create_by(address: data[:ip]).id
     referred_by_from_data = ReferredBy.find_or_create_by(address: data[:referred_by]).id
     url_from_data = URL.find_or_create_by(address: data[:url]).id
     request_type_from_data = RequestType.find_or_create_by(verb: data[:request_type]).id
     resolution_from_data = Resolution.create(resolution_width: data[:resolution_width], resolution_height: data[:resolution_height]).id
+    os_and_browser_from_data = OsAndBrowser.create(operating_system: user_agent.platform, browser: user_agent.browser).id
     # Resolution.find(resolution_from_data).update_attribute(resolution_height, data[:resolution_height])
     PayloadRequest.create({
       ip_id: ip_from_data,
       referred_by_id: referred_by_from_data,
       url_id: url_from_data,
       request_type_id: request_type_from_data,
-      resolution_id: resolution_from_data
-      requested_at: data[:requested_at]
-      responded_in: data[:responded_in]
-      # and also the useragent thing
+      resolution_id: resolution_from_data,
+      requested_at: data[:requested_at],
+      responded_in: data[:responded_in],
+      os_and_browser_id: os_and_browser_from_data
+      
       })
   end
 end

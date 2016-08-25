@@ -13,7 +13,7 @@ class PayloadRequestTest < Minitest::Test
     "request_type_id":0,
     #need to fix UserAgent (browser and OS)
     #userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-    os_and_browser_id: 0,
+    "os_and_browser_id": 0,
     "resolution_id":0,
     "ip_id":0,
     )
@@ -95,36 +95,76 @@ class PayloadRequestTest < Minitest::Test
 
   def test_avg_response_time_all_requests
     PayloadRequest.create(
+    url_id:0,
     requested_at:"2013-02-16 21:38:28 -0700",
     responded_in:37,
+    referred_by_id:0,
+    request_type_id:0,
+    os_and_browser_id:"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+    resolution_id:0,
+    ip_id:0,
     )
     PayloadRequest.create(
-    requested_at:"2013-02-16 21:38:30 -0700",
+    url_id:0,
+    requested_at:"2013-02-16 21:38:28 -0700",
     responded_in:46,
+    referred_by_id:0,
+    request_type_id:0,
+    #need to fix UserAgent (browser and OS)
+    os_and_browser_id:"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+    resolution_id:0,
+    ip_id:0,
     )
     assert_equal 41.5, PayloadRequest.avg_response_all
   end
 
   def test_max_response_time_all_requests
     PayloadRequest.create(
+    url_id:0,
     requested_at:"2013-02-16 21:38:28 -0700",
     responded_in:37,
+    referred_by_id:0,
+    request_type_id:0,
+    #need to fix UserAgent (browser and OS)
+    os_and_browser_id:"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+    resolution_id:0,
+    ip_id:0,
     )
     PayloadRequest.create(
-    requested_at:"2013-02-16 21:38:30 -0700",
+    url_id:0,
+    requested_at:"2013-02-16 21:38:28 -0700",
     responded_in:46,
+    referred_by_id:0,
+    request_type_id:0,
+    #need to fix UserAgent (browser and OS)
+    os_and_browser_id:"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+    resolution_id:0,
+    ip_id:0,
     )
     assert_equal 46, PayloadRequest.max_response_all
   end
-
   def test_min_response_time_all_requests
     PayloadRequest.create(
+    url_id:0,
     requested_at:"2013-02-16 21:38:28 -0700",
     responded_in:37,
+    referred_by_id:0,
+    request_type_id:0,
+    #need to fix UserAgent (browser and OS)
+    os_and_browser_id:"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+    resolution_id:0,
+    ip_id:0,
     )
     PayloadRequest.create(
-    requested_at:"2013-02-16 21:38:30 -0700",
+    url_id:0,
+    requested_at:"2013-02-16 21:38:28 -0700",
     responded_in:46,
+    referred_by_id:0,
+    request_type_id:0,
+    #need to fix UserAgent (browser and OS)
+    os_and_browser_id:"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+    resolution_id:0,
+    ip_id:0,
     )
     assert_equal 37, PayloadRequest.min_response_all
   end
@@ -148,6 +188,7 @@ class PayloadRequestTest < Minitest::Test
     assert_equal "GET", RequestType.find(pr.request_type_id).verb
     assert_equal 1920, Resolution.find(pr.resolution_id).resolution_width
     assert_equal 1280, Resolution.find(pr.resolution_id).resolution_height
-    # do the user agent thing
+    assert_equal "Macintosh", OsAndBrowser.find(pr.os_and_browser_id).operating_system
+    assert_equal "Chrome", OsAndBrowser.find(pr.os_and_browser_id).browser
   end
 end
