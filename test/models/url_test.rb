@@ -1,10 +1,10 @@
 require_relative "../test_helper"
 
-class URLTest < Minitest::Test
+class UrlTest < Minitest::Test
   include TestHelpers
 
   def test_it_has_a_url
-    urls = URL.create(
+    urls = Url.create(
     address:"http://jumpstartlab.com/blog"
     )
 
@@ -12,16 +12,16 @@ class URLTest < Minitest::Test
   end
 
   def test_validates_address
-    address = URL.create(
+    address = Url.create(
     address:"http://jumpstartlab.com/blog")
     assert_equal true, address.valid?
   end
 
   def test_addresses_must_be_unique
-    address = URL.create(
+    address = Url.create(
     address:"http://jumpstartlab.com/blog"
     )
-    other_address = URL.create(
+    other_address = Url.create(
     address:"http://jumpstartlab.com/blog"
     )
 

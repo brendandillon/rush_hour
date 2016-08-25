@@ -193,13 +193,66 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_it_returns_least_to_most_requested_url
-    Url.create(address:"http://jumpstartlab.com/blog")
-    Url.create(address:"https://www.facebook.com")
-    Url.create(address:"http://jumpstartlab.com/blog")
-    Url.create(address:"http://jumpstartlab.com/blog")
-    Url.create(address:"http://jumpstartlab.com/blog")
+    url_1 = Url.create(address:"http://jumpstartlab.com/blog")
+    url_2 = Url.create(address:"https://www.facebook.com")
 
-    assert_equal "", PayloadRequest.all_urls_most_to_least_requested
+    PayloadRequest.create(
+    url_id: url_1.id,
+    requested_at:"2013-02-16 21:38:28 -0700",
+    responded_in:0,
+    referred_by_id:0,
+    request_type_id:0,
+    os_and_browser_id: 0,
+    resolution_id:0,
+    ip_id:0,
+    )
+
+    PayloadRequest.create(
+    url_id: url_2.id,
+    requested_at:"2013-02-16 21:38:28 -0700",
+    responded_in:0,
+    referred_by_id:0,
+    request_type_id:0,
+    os_and_browser_id: 0,
+    resolution_id:0,
+    ip_id:0,
+    )
+
+    PayloadRequest.create(
+    url_id: url_2.id,
+    requested_at:"2013-02-16 21:38:28 -0700",
+    responded_in:0,
+    referred_by_id:0,
+    request_type_id:0,
+    os_and_browser_id: 0,
+    resolution_id:0,
+    ip_id:0,
+    )
+
+    PayloadRequest.create(
+    url_id: url_2.id,
+    requested_at:"2013-02-16 21:38:28 -0700",
+    responded_in:0,
+    referred_by_id:0,
+    request_type_id:0,
+    os_and_browser_id: 0,
+    resolution_id:0,
+    ip_id:0,
+    )
+
+    PayloadRequest.create(
+    url_id: url_1.id,
+    requested_at: "2013-02-16 21:38:28 -0700",
+    responded_in:0,
+    referred_by_id:0,
+    request_type_id:0,
+    os_and_browser_id: 0,
+    resolution_id:0,
+    ip_id:0,
+    )
+
+    expected = "https://www.facebook.com, http://jumpstartlab.com/blog"
+    assert_equal expected, PayloadRequest.all_urls_most_to_least_requested
   end
 
 end

@@ -24,7 +24,7 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.all_urls_most_to_least_requested
-    PayloadRequest.joins(:url).group(:address).count
+    PayloadRequest.joins(:url).group(:address).order("count_id desc").count("id").keys.join(", ")
   end
 
   def self.fill_tables(data)
