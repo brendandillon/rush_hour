@@ -8,4 +8,13 @@ class Url < ActiveRecord::Base
     Url.find(id).payload_requests.maximum(:responded_in)
   end
 
+  def self.min_response(id)
+    Url.find(id).payload_requests.minimum(:responded_in)
+  end
+
+  def self.response_time_list(id)
+    Url.find(id).payload_requests.order(:responded_in).pluck(:responded_in)
+  end
+
+
 end
