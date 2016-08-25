@@ -320,7 +320,7 @@ class PayloadRequestTest < Minitest::Test
     "ip_id":0,
     )
 
-    expected = {"Macintosh" => 1, "Windows" => 1} 
+    expected = {"Macintosh" => 1, "Windows" => 1}
 
     assert_equal expected, PayloadRequest.operating_system_use_across_requests
   end
@@ -360,5 +360,5 @@ class PayloadRequestTest < Minitest::Test
 
     assert_equal expected, PayloadRequest.resolution_across_requests
   end
-  
+
 end

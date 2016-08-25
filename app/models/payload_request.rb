@@ -12,6 +12,8 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :url
   belongs_to :os_and_browser
   belongs_to :resolution
+  belongs_to :request_type
+  belongs_to :referred_by
 
   def self.avg_response_all
     PayloadRequest.average(:responded_in).to_f
@@ -35,8 +37,8 @@ class PayloadRequest < ActiveRecord::Base
     referred_by_from_data = ReferredBy.find_or_create_by(address: data[:referred_by]).id
     url_from_data = Url.find_or_create_by(address: data[:url]).id
     request_type_from_data = RequestType.find_or_create_by(verb: data[:request_type]).id
-    resolution_from_data = Resolution.create(resolution_width: data[:resolution_width], resolution_height: data[:resolution_height]).id
-    os_and_browser_from_data = OsAndBrowser.create(operating_system: user_agent.platform, browser: user_agent.browser).id
+    resolution_from_data = Resolution.find_or_create_by(resolution_width: data[:resolution_width], resolution_height: data[:resolution_height]).id
+    os_and_browser_from_data = OsAndBrowser.find_or_create_by(operating_system: user_agent.platform, browser: user_agent.browser).id
     # Resolution.find(resolution_from_data).update_attribute(resolution_height, data[:resolution_height])
     PayloadRequest.create({
       ip_id: ip_from_data,
@@ -47,7 +49,6 @@ class PayloadRequest < ActiveRecord::Base
       requested_at: data[:requested_at],
       responded_in: data[:responded_in],
       os_and_browser_id: os_and_browser_from_data
-
       })
   end
 
