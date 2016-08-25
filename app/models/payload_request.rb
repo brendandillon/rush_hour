@@ -8,15 +8,18 @@ class PayloadRequest < ActiveRecord::Base
   validates :os_and_browser_id, presence: true
   validates :resolution_id, presence: true
   validates :ip_id, presence: true
+  validates :client_id, presence: true
 
   belongs_to :url
   belongs_to :os_and_browser
   belongs_to :resolution
   belongs_to :request_type
   belongs_to :referred_by
+  belongs_to :ip
+  belongs_to :client
 
   def self.avg_response_all
-    PayloadRequest.average(:responded_in).to_f
+    PayloadRequest.average(:responded_in).to_f.round(2)
   end
 
   def self.max_response_all
@@ -48,7 +51,8 @@ class PayloadRequest < ActiveRecord::Base
       resolution_id: resolution_from_data,
       requested_at: data[:requested_at],
       responded_in: data[:responded_in],
-      os_and_browser_id: os_and_browser_from_data
+      os_and_browser_id: os_and_browser_from_data,
+      client_id: 0
       })
   end
 
