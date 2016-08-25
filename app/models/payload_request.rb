@@ -12,6 +12,8 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :url
   belongs_to :os_and_browser
   belongs_to :resolution
+  belongs_to :request_type
+  belongs_to :referred_by
 
   def self.avg_response_all
     PayloadRequest.average(:responded_in).to_f
