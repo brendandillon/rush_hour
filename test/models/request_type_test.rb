@@ -74,5 +74,12 @@ class RequestTypeTest < Minitest::Test
     assert_equal true, verb.valid?
   end
 
+  def test_it_returns_all_verbs
+    RequestType.create(verb:"PUT")
+    RequestType.create(verb:"GET")
+    RequestType.create(verb:"POST")
+
+    assert_equal "GET,POST,PUT", RequestType.list_all_verbs
+  end
 
 end

@@ -16,7 +16,7 @@ class URLTest < Minitest::Test
     address:"http://jumpstartlab.com/blog")
     assert_equal true, address.valid?
   end
-  
+
   def test_addresses_must_be_unique
     address = URL.create(
     address:"http://jumpstartlab.com/blog"
@@ -24,9 +24,8 @@ class URLTest < Minitest::Test
     other_address = URL.create(
     address:"http://jumpstartlab.com/blog"
     )
-    
+
     refute other_address.save
   end
-
 
 end

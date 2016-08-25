@@ -7,4 +7,9 @@ class RequestType < ActiveRecord::Base
     RequestType.group(:verb).count.max_by { |key, value| value }.first
   end
 
+  #method created by Rapha
+  def self.list_all_verbs
+    RequestType.group(:verb).count.keys.sort.join(",")
+  end
+
 end

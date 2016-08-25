@@ -23,11 +23,15 @@ class PayloadRequest < ActiveRecord::Base
     PayloadRequest.minimum(:responded_in)
   end
 
+  def self.all_urls_most_to_least_requested
+    PayloadRequest.joins(:url).group(:address).count
+  end
+
   def self.fill_tables(data)
     user_agent = UserAgent.parse(data[:user_agent])
     ip_from_data = IP.find_or_create_by(address: data[:ip]).id
     referred_by_from_data = ReferredBy.find_or_create_by(address: data[:referred_by]).id
-    url_from_data = URL.find_or_create_by(address: data[:url]).id
+    url_from_data = Url.find_or_create_by(address: data[:url]).id
     request_type_from_data = RequestType.find_or_create_by(verb: data[:request_type]).id
     resolution_from_data = Resolution.create(resolution_width: data[:resolution_width], resolution_height: data[:resolution_height]).id
     os_and_browser_from_data = OsAndBrowser.create(operating_system: user_agent.platform, browser: user_agent.browser).id
@@ -41,7 +45,7 @@ class PayloadRequest < ActiveRecord::Base
       requested_at: data[:requested_at],
       responded_in: data[:responded_in],
       os_and_browser_id: os_and_browser_from_data
-      
+
       })
   end
 end
