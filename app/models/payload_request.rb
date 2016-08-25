@@ -10,6 +10,7 @@ class PayloadRequest < ActiveRecord::Base
   validates :ip_id, presence: true
 
   belongs_to :url
+  belongs_to :os_and_browser
 
   def self.avg_response_all
     PayloadRequest.average(:responded_in).to_f
@@ -43,5 +44,9 @@ class PayloadRequest < ActiveRecord::Base
       os_and_browser_id: os_and_browser_from_data
       
       })
+  end
+
+  def self.browser_use_across_requests
+    PayloadRequest.joins(:os_and_browser).group(:browser).count
   end
 end

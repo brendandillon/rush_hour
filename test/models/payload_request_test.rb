@@ -191,4 +191,39 @@ class PayloadRequestTest < Minitest::Test
     assert_equal "Macintosh", OsAndBrowser.find(pr.os_and_browser_id).operating_system
     assert_equal "Chrome", OsAndBrowser.find(pr.os_and_browser_id).browser
   end
+
+  def test_breaks_down_browser_use_across_requests
+    oab = OsAndBrowser.create(
+      "browser":"Chrome",
+      "operating_system":"Windows"
+    )
+    PayloadRequest.create(
+    "url_id":0,
+    "requested_at":"2013-02-16 21:38:28 -0700",
+    "responded_in":37,
+    "referred_by_id":0,
+    "request_type_id":0,
+    "os_and_browser_id": oab.id,
+    "resolution_id":0,
+    "ip_id":0,
+    )
+    oab_two = OsAndBrowser.create(
+      "browser": "Firefox",
+      "operating_system":"Macintosh"
+    )
+    PayloadRequest.create(
+    "url_id":0,
+    "requested_at":"2013-02-16 21:38:28 -0700",
+    "responded_in":37,
+    "referred_by_id":0,
+    "request_type_id":0,
+    "os_and_browser_id": oab_two.id,
+    "resolution_id":0,
+    "ip_id":0,
+    )
+
+    expected = {"Chrome" => 1, "Firefox" => 1}
+
+    assert_equal expected, PayloadRequest.browser_use_across_requests
+  end
 end
