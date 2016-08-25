@@ -41,6 +41,7 @@ class RequestTypeTest < Minitest::Test
   end
 
   def test_most_frequent_request_type_3
+    skip
     RequestType.create(
     verb:"PUT"
     )
