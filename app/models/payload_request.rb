@@ -49,4 +49,8 @@ class PayloadRequest < ActiveRecord::Base
   def self.browser_use_across_requests
     PayloadRequest.joins(:os_and_browser).group(:browser).count
   end
+
+  def self.operating_system_use_across_requests
+    PayloadRequest.joins(:os_and_browser).group(:operating_system).count
+  end
 end
