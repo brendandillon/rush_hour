@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160824210638) do
+ActiveRecord::Schema.define(version: 20160825001526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20160824210638) do
     t.integer  "ip_id"
   end
 
-  create_table "referred_by", force: :cascade do |t|
+  create_table "referred_bies", force: :cascade do |t|
     t.text     "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
