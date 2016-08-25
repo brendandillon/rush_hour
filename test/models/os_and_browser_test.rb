@@ -33,5 +33,4 @@ class OsAndBrowserTest < Minitest::Test
 
   def test_validates_os
   end
-
 end

@@ -255,4 +255,110 @@ class PayloadRequestTest < Minitest::Test
     assert_equal expected, PayloadRequest.all_urls_most_to_least_requested
   end
 
+  def test_breaks_down_browser_use_across_requests
+    oab = OsAndBrowser.create(
+      "browser":"Chrome",
+      "operating_system":"Windows"
+    )
+    PayloadRequest.create(
+    "url_id":0,
+    "requested_at":"2013-02-16 21:38:28 -0700",
+    "responded_in":37,
+    "referred_by_id":0,
+    "request_type_id":0,
+    "os_and_browser_id": oab.id,
+    "resolution_id":0,
+    "ip_id":0,
+    )
+    oab_two = OsAndBrowser.create(
+      "browser": "Firefox",
+      "operating_system":"Macintosh"
+    )
+    PayloadRequest.create(
+    "url_id":0,
+    "requested_at":"2013-02-16 21:38:28 -0700",
+    "responded_in":37,
+    "referred_by_id":0,
+    "request_type_id":0,
+    "os_and_browser_id": oab_two.id,
+    "resolution_id":0,
+    "ip_id":0,
+    )
+
+    expected = {"Chrome" => 1, "Firefox" => 1}
+
+    assert_equal expected, PayloadRequest.browser_use_across_requests
+  end
+
+  def test_breaks_down_operating_system_across_requests
+    oab = OsAndBrowser.create(
+      "browser":"Chrome",
+      "operating_system":"Windows"
+    )
+    PayloadRequest.create(
+    "url_id":0,
+    "requested_at":"2013-02-16 21:38:28 -0700",
+    "responded_in":37,
+    "referred_by_id":0,
+    "request_type_id":0,
+    "os_and_browser_id": oab.id,
+    "resolution_id":0,
+    "ip_id":0,
+    )
+    oab_two = OsAndBrowser.create(
+      "browser": "Firefox",
+      "operating_system":"Macintosh"
+    )
+    PayloadRequest.create(
+    "url_id":0,
+    "requested_at":"2013-02-16 21:38:28 -0700",
+    "responded_in":37,
+    "referred_by_id":0,
+    "request_type_id":0,
+    "os_and_browser_id": oab_two.id,
+    "resolution_id":0,
+    "ip_id":0,
+    )
+
+    expected = {"Macintosh" => 1, "Windows" => 1} 
+
+    assert_equal expected, PayloadRequest.operating_system_use_across_requests
+  end
+
+  def test_breaks_down_screen_resolution_across_requests
+    res = Resolution.create(
+      "resolution_width":1080,
+      "resolution_height":900
+    )
+    PayloadRequest.create(
+    "url_id":0,
+    "requested_at":"2013-02-16 21:38:28 -0700",
+    "responded_in":37,
+    "referred_by_id":0,
+    "request_type_id":0,
+    "os_and_browser_id":0,
+    "resolution_id":res.id,
+    "ip_id":0,
+    )
+    res_two = Resolution.create(
+      "resolution_width":100,
+      "resolution_height":100
+    )
+    PayloadRequest.create(
+    "url_id":0,
+    "requested_at":"2013-02-16 21:38:28 -0700",
+    "responded_in":37,
+    "referred_by_id":0,
+    "request_type_id":0,
+    "os_and_browser_id":0,
+    "resolution_id":res_two.id,
+    "ip_id":0,
+    )
+
+
+    expected = {[1080, 900] => 1, [100, 100] => 1}
+
+    assert_equal expected, PayloadRequest.resolution_across_requests
+  end
+  
 end
