@@ -182,7 +182,7 @@ class PayloadRequestTest < Minitest::Test
       ip:"63.29.38.211"
     }
     pr = PayloadRequest.fill_tables(to_fill)
-    assert_equal "http://jumpstartlab.com/blog", URL.find(pr.url_id).address
+    assert_equal "http://jumpstartlab.com/blog", Url.find(pr.url_id).address
     assert_equal "63.29.38.211", IP.find(pr.ip_id).address
     assert_equal "http://jumpstartlab.com", ReferredBy.find(pr.referred_by_id).address
     assert_equal "GET", RequestType.find(pr.request_type_id).verb
@@ -190,6 +190,69 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 1280, Resolution.find(pr.resolution_id).resolution_height
     assert_equal "Macintosh", OsAndBrowser.find(pr.os_and_browser_id).operating_system
     assert_equal "Chrome", OsAndBrowser.find(pr.os_and_browser_id).browser
+  end
+
+  def test_it_returns_least_to_most_requested_url
+    url_1 = Url.create(address:"http://jumpstartlab.com/blog")
+    url_2 = Url.create(address:"https://www.facebook.com")
+
+    PayloadRequest.create(
+    url_id: url_1.id,
+    requested_at:"2013-02-16 21:38:28 -0700",
+    responded_in:0,
+    referred_by_id:0,
+    request_type_id:0,
+    os_and_browser_id: 0,
+    resolution_id:0,
+    ip_id:0,
+    )
+
+    PayloadRequest.create(
+    url_id: url_2.id,
+    requested_at:"2013-02-16 21:38:28 -0700",
+    responded_in:0,
+    referred_by_id:0,
+    request_type_id:0,
+    os_and_browser_id: 0,
+    resolution_id:0,
+    ip_id:0,
+    )
+
+    PayloadRequest.create(
+    url_id: url_2.id,
+    requested_at:"2013-02-16 21:38:28 -0700",
+    responded_in:0,
+    referred_by_id:0,
+    request_type_id:0,
+    os_and_browser_id: 0,
+    resolution_id:0,
+    ip_id:0,
+    )
+
+    PayloadRequest.create(
+    url_id: url_2.id,
+    requested_at:"2013-02-16 21:38:28 -0700",
+    responded_in:0,
+    referred_by_id:0,
+    request_type_id:0,
+    os_and_browser_id: 0,
+    resolution_id:0,
+    ip_id:0,
+    )
+
+    PayloadRequest.create(
+    url_id: url_1.id,
+    requested_at: "2013-02-16 21:38:28 -0700",
+    responded_in:0,
+    referred_by_id:0,
+    request_type_id:0,
+    os_and_browser_id: 0,
+    resolution_id:0,
+    ip_id:0,
+    )
+
+    expected = "https://www.facebook.com, http://jumpstartlab.com/blog"
+    assert_equal expected, PayloadRequest.all_urls_most_to_least_requested
   end
 
   def test_breaks_down_browser_use_across_requests
