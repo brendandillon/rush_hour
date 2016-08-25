@@ -19,6 +19,23 @@ class PayloadRequestTest < Minitest::Test
     )
   end
 
+  def test_its_creating_payloadrequest
+    PayloadRequest.create(id: nil,
+     responded_in: 37,
+     created_at: nil,
+     updated_at: nil,
+     requested_at: "2013-02-16 21:38:28 -0700",
+     url_id: 1,
+     referred_by_id: 1,
+     request_type_id: 1,
+     os_and_browser_id: nil,
+     resolution_id: nil,
+     ip_id: 1
+     )
+
+     assert PayloadRequest.exists?(1)
+  end
+
   def test_it_creates_a_payload_request
     create_payload_request
 
@@ -320,7 +337,7 @@ class PayloadRequestTest < Minitest::Test
     "ip_id":0,
     )
 
-    expected = {"Macintosh" => 1, "Windows" => 1} 
+    expected = {"Macintosh" => 1, "Windows" => 1}
 
     assert_equal expected, PayloadRequest.operating_system_use_across_requests
   end
@@ -360,5 +377,5 @@ class PayloadRequestTest < Minitest::Test
 
     assert_equal expected, PayloadRequest.resolution_across_requests
   end
-  
+
 end

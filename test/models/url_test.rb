@@ -28,4 +28,32 @@ class UrlTest < Minitest::Test
     refute other_address.save
   end
 
+  def test_max_response_time
+    url_1 = Url.create(address:"http://jumpstartlab.com/blog")
+    PayloadRequest.create(
+    url_id: url_1.id,
+    requested_at:"2013-02-16 21:38:28 -0700",
+    responded_in:37,
+    referred_by_id:0,
+    request_type_id:0,
+    os_and_browser_id:"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+    resolution_id:0,
+    ip_id:0,
+    )
+
+    PayloadRequest.create(
+    url_id: url_1.id,
+    requested_at:"2013-02-16 21:38:28 -0700",
+    responded_in:40,
+    referred_by_id:0,
+    request_type_id:0,
+    os_and_browser_id:"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+    resolution_id:0,
+    ip_id:0,
+    )
+
+    assert_equal 40, Url.max_response(url_1.id)
+  end
+
+
 end

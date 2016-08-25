@@ -4,8 +4,8 @@ class Url < ActiveRecord::Base
   has_many :payload_requests
   validates :address, uniqueness: true
 
-
-
-
+  def self.max_response(id)
+    Url.find(id).payload_requests.maximum(:responded_in)
+  end
 
 end
