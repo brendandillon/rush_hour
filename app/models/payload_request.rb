@@ -47,7 +47,6 @@ class PayloadRequest < ActiveRecord::Base
       requested_at: data[:requested_at],
       responded_in: data[:responded_in],
       os_and_browser_id: os_and_browser_from_data
-
       })
   end
 

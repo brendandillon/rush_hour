@@ -1,3 +1,4 @@
+require 'pry'
 class Url < ActiveRecord::Base
 
   validates :address, presence: true
@@ -14,6 +15,10 @@ class Url < ActiveRecord::Base
 
   def self.response_time_list(id)
     Url.find(id).payload_requests.order(:responded_in).pluck(:responded_in)
+  end
+
+  def self.average_response(id)
+    Url.find(id).payload_requests.average(:responded_in).to_f
   end
 
 
