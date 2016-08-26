@@ -20,7 +20,7 @@ class ResolutionTest < Minitest::Test
   end
 
   def test_resolutions_must_be_unique
-    resolutions = Resolution.create(
+    Resolution.create(
     resolution_width:"1920",
     resolution_height:"1280")
     other_resolutions = Resolution.create(
