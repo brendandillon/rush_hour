@@ -22,5 +22,16 @@ module RushHour
         body "Missing Parameters"
       end
     end
+
+    post '/sources/:identifier/data' do
+      if params[:payload]
+        status 200
+        body "OK"
+      else
+        status 400
+        body "Bad Request"
+      end
+    end
+
   end
 end
