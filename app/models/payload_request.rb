@@ -42,8 +42,7 @@ class PayloadRequest < ActiveRecord::Base
     request_type_from_data = RequestType.find_or_create_by(verb: data[:request_type]).id
     resolution_from_data = Resolution.find_or_create_by(resolution_width: data[:resolution_width], resolution_height: data[:resolution_height]).id
     os_and_browser_from_data = OsAndBrowser.find_or_create_by(operating_system: user_agent.platform, browser: user_agent.browser).id
-    # Resolution.find(resolution_from_data).update_attribute(resolution_height, data[:resolution_height])
-    PayloadRequest.create({
+    payloadrequest ={
       ip_id: ip_from_data,
       referred_by_id: referred_by_from_data,
       url_id: url_from_data,
@@ -53,7 +52,12 @@ class PayloadRequest < ActiveRecord::Base
       responded_in: data[:responded_in],
       os_and_browser_id: os_and_browser_from_data,
       client_id: 0
-      })
+    }
+    if PayloadRequest.find_by(payloadrequest)
+      return nil
+    else
+      PayloadRequest.create(payloadrequest)
+    end
   end
 
   def self.browser_use_across_requests
@@ -67,4 +71,5 @@ class PayloadRequest < ActiveRecord::Base
   def self.resolution_across_requests
     PayloadRequest.joins(:resolution).group(:resolution_width, :resolution_height).count
   end
+
 end
