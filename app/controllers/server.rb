@@ -24,12 +24,23 @@ module RushHour
     end
 
     post '/sources/:identifier/data' do
-      if params[:payload]
-        status 200
-        body "OK"
+      if Client.find_by(identifier: params[:identifier])
+        if params[:payload]
+          variable = Parser.new.parse(params[:payload])
+          if PayloadRequest.fill_tables(variable)
+            status 200
+            body "OK"
+          else
+            status 403
+            body "Payload already received"
+          end
+        else
+          status 400
+          body "Bad Request"
+        end
       else
-        status 400
-        body "Bad Request"
+        status 403
+        body "Application not registered"
       end
     end
 
