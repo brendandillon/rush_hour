@@ -6,20 +6,20 @@ class Url < ActiveRecord::Base
   has_many :payload_requests
   has_many :request_types, through: :payload_requests
 
-  def self.max_response(id)
-    Url.find(id).payload_requests.maximum(:responded_in)
+  def max_response
+    payload_requests.maximum(:responded_in)
   end
 
-  def self.min_response(id)
-    Url.find(id).payload_requests.minimum(:responded_in)
+  def min_response
+    payload_requests.minimum(:responded_in)
   end
 
-  def self.response_time_list(id)
-    Url.find(id).payload_requests.order(:responded_in).pluck(:responded_in)
+  def response_time_list
+    payload_requests.order(:responded_in).pluck(:responded_in)
   end
 
-  def self.average_response(id)
-    Url.find(id).payload_requests.average(:responded_in).to_f
+  def average_response
+    payload_requests.average(:responded_in).to_f
   end
 
   def http_verbs
