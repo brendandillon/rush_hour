@@ -26,8 +26,8 @@ module RushHour
     post '/sources/:identifier/data' do
       if Client.find_by(identifier: params[:identifier])
         if params[:payload]
-          variable = Parser.new.parse(params[:payload])
-          if PayloadRequest.fill_tables(variable)
+          parsed_payload = Parser.new.parse(params[:payload], params[:identifier])
+          if PayloadRequest.fill_tables(parsed_payload)
             status 200
             body "OK"
           else
