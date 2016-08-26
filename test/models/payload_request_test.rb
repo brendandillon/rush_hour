@@ -111,6 +111,7 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_it_fills_the_tables
+    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
     to_fill = {
       url:"http://jumpstartlab.com/blog",
       requested_at:"2013-02-16 21:38:28 -0700",
@@ -120,7 +121,8 @@ class PayloadRequestTest < Minitest::Test
       user_agent:"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
       resolution_width:"1920",
       resolution_height:"1280",
-      ip:"63.29.38.211"
+      ip:"63.29.38.211",
+      client:"jumpstartlab"
     }
     pr = PayloadRequest.fill_tables(to_fill)
     assert_equal "http://jumpstartlab.com/blog", Url.find(pr.url_id).address
@@ -162,6 +164,7 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_it_validates_for_duplicates
+    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
     to_fill = {
       url:"http://jumpstartlab.com/blog",
       requested_at:"2013-02-16 21:38:28 -0700",
@@ -171,7 +174,8 @@ class PayloadRequestTest < Minitest::Test
       user_agent:"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
       resolution_width:"1920",
       resolution_height:"1280",
-      ip:"63.29.38.211"
+      ip:"63.29.38.211",
+      client:"jumpstartlab"
     }
 
     PayloadRequest.fill_tables(to_fill)

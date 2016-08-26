@@ -46,6 +46,7 @@ class PayloadRequest < ActiveRecord::Base
     request_type_from_data = RequestType.find_or_create_by(verb: data[:request_type]).id
     resolution_from_data = Resolution.find_or_create_by(resolution_width: data[:resolution_width], resolution_height: data[:resolution_height]).id
     os_and_browser_from_data = OsAndBrowser.find_or_create_by(operating_system: user_agent.platform, browser: user_agent.browser).id
+    client_from_data = Client.find_by(identifier: data[:client]).id
     payloadrequest ={
       ip_id: ip_from_data,
       referred_by_id: referred_by_from_data,
@@ -55,7 +56,7 @@ class PayloadRequest < ActiveRecord::Base
       requested_at: data[:requested_at],
       responded_in: data[:responded_in],
       os_and_browser_id: os_and_browser_from_data,
-      client_id: 0
+      client_id: client_from_data
     }
     if PayloadRequest.find_by(payloadrequest)
       return nil
