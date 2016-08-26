@@ -62,4 +62,33 @@ class ServerControllerTest < Minitest::Test
     assert_equal "abc", Client.find(1).identifier
     assert_equal 1, PayloadRequest.first.client_id
   end
+
+  def test_identifier_knows_if_it_does_not_exist
+    get '/sources/abc'
+
+    assert_equal 403, last_response.status
+  end
+
+  def test_identifier_knows_if_it_exists
+    post '/sources', {"rootUrl" => "abc.com", "identifier" => "abc"}
+    post '/sources/abc/data', "payload" =>'{"url":"http://jumpstartlab.com/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}'
+    get '/sources/abc'
+
+    assert_equal 200, last_response.status
+  end
+
+  def test_it_knows_if_payload_data_has_been_received
+    post '/sources', {"rootUrl" => "abc.com", "identifier" => "abc"}
+    post '/sources/abc/data', "payload" =>'{"url":"http://jumpstartlab.com/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}'
+    get '/sources/abc'
+
+    assert_equal 200, last_response.status
+  end
+
+  def test_it_knows_if_payload_data_has_not_been_recieved
+    post '/sources', {"rootUrl" => "abc.com", "identifier" => "abc"}
+    get '/sources/abc'
+
+    assert_equal 403, last_response.status
+  end
 end

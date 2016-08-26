@@ -2,8 +2,9 @@ require 'pry'
 class Url < ActiveRecord::Base
 
   validates :address, presence: true
-  has_many :payload_requests
   validates :address, uniqueness: true
+  has_many :payload_requests
+  has_many :request_types, through: :payload_requests
 
   def self.max_response(id)
     Url.find(id).payload_requests.maximum(:responded_in)
@@ -21,8 +22,8 @@ class Url < ActiveRecord::Base
     Url.find(id).payload_requests.average(:responded_in).to_f
   end
 
-  def self.http_verbs(id)
-   Url.find(id).payload_requests.joins(:request_type).pluck(:verb).uniq
+  def http_verbs
+    request_types.pluck(:verb).uniq
   end
 
   def self.top_three_referrers(id)

@@ -60,7 +60,7 @@ class UrlTest < Minitest::Test
     db_mock
 
     url_1 = Url.find_by(address: "http://jumpstartlab.com/blog")
-    assert_equal ["GET"], Url.http_verbs(url_1.id)
+    assert_equal ["GET"], url_1.http_verbs
   end
 
   def test_returns_top_three_referrers

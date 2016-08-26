@@ -44,5 +44,17 @@ module RushHour
       end
     end
 
+    get '/sources/:identifier' do
+      if Client.find_by(identifier: params[:identifier])
+        if PayloadRequest.exists?(1)
+          status 200
+        else
+          status 403
+        end
+      else
+        status 403
+      end
+    end
+
   end
 end
