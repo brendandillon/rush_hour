@@ -8,11 +8,16 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'capybara/dsl'
 require 'database_cleaner'
+require 'rack/test'
 
 Capybara.app = RushHour::Server
 
 module TestHelpers
 
+  include Rack::Test::Methods
+  def app     
+    RushHour::Server
+  end
   def setup
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.start
