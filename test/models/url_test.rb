@@ -18,7 +18,7 @@ class UrlTest < Minitest::Test
   end
 
   def test_addresses_must_be_unique
-    address = Url.create(
+    Url.create(
     address:"http://jumpstartlab.com/blog"
     )
     other_address = Url.create(

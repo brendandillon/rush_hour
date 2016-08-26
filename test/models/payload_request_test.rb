@@ -181,4 +181,10 @@ class PayloadRequestTest < Minitest::Test
     assert_equal nil, pr
   end
 
+  def test_most_frequent_request_type
+    db_mock
+
+    assert_equal "GET", PayloadRequest.most_frequent_request_type
+  end
+
 end

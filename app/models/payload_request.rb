@@ -34,6 +34,10 @@ class PayloadRequest < ActiveRecord::Base
     PayloadRequest.joins(:url).group(:address).order("count_id desc").count("id").keys.join(", ")
   end
 
+  def self.most_frequent_request_type
+    PayloadRequest.joins(:request_type).group(:verb).count.max_by { |key, value| value }.first
+  end
+
   def self.fill_tables(data)
     user_agent = UserAgent.parse(data[:user_agent])
     ip_from_data = IP.find_or_create_by(address: data[:ip]).id

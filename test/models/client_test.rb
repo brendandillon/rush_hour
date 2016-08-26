@@ -23,7 +23,7 @@ class ClientTest < Minitest::Test
 
 
   def test_unique_client
-    client = Client.create(
+    Client.create(
       root_url:"google.com",
       identifier: "google"
     )
