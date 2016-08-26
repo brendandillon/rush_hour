@@ -47,7 +47,12 @@ module RushHour
     get '/sources/:identifier' do
       if Client.find_by(identifier: params[:identifier])
         if PayloadRequest.exists?(1)
+          @payloadrequest = PayloadRequest
+          @requesttype = RequestType
+          @client_id = Client.find_by(identifier: params[:identifier]).id
+          @identifier = params[:identifier]
           status 200
+          erb :client_dashboard
         else
           status 403
         end
