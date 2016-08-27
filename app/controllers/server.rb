@@ -48,7 +48,6 @@ module RushHour
       if Client.find_by(identifier: params[:identifier])
         if PayloadRequest.exists?(1)
           @payloadrequest = PayloadRequest
-          @requesttype = RequestType
           @client_id = Client.find_by(identifier: params[:identifier]).id
           @identifier = params[:identifier]
           status 200

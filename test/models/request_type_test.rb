@@ -33,7 +33,7 @@ class RequestTypeTest < Minitest::Test
     RequestType.create(verb:"GET")
     RequestType.create(verb:"POST")
 
-    assert_equal "GET,POST,PUT", RequestType.list_all_verbs
+    assert_equal ["PUT", "GET", "POST"], RequestType.pluck(:verb)
   end
 
 end
