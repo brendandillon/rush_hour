@@ -61,5 +61,22 @@ module RushHour
       end
     end
 
+    get '/sources/:identifier/urls/:relativepath' do
+      if Client.find_by(identifier: params[:identifier])
+        if PayloadRequest.exists?(1)
+          root_url = Client.find_by(identifier: params[:identifier]).root_url
+          @url = Url.find_by(address: root_url+"/"+params[:relativepath])
+          @identifier = params[:identifier]
+          @relativepath = params[:relativepath]
+          status 200
+          erb :url_dashboard
+        else
+          status 403
+        end
+      else
+        status 403
+      end
+    end
+
   end
 end

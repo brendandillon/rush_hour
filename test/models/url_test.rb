@@ -32,28 +32,28 @@ class UrlTest < Minitest::Test
     db_mock
 
     url_1 = Url.find_by(address: "http://jumpstartlab.com/blog")
-    assert_equal 57, Url.max_response(url_1.id)
+    assert_equal 57, url_1.max_response
   end
 
   def test_returns_min_response
     db_mock
 
     url_1 = Url.find_by(address: "http://jumpstartlab.com/blog")
-    assert_equal 37, Url.min_response(url_1.id)
+    assert_equal 37, url_1.min_response
   end
 
   def test_returns_response_time_list
     db_mock
 
     url_1 = Url.find_by(address: "http://jumpstartlab.com/blog")
-    assert_equal [37, 47, 57], Url.response_time_list(url_1.id)
+    assert_equal [37, 47, 57], url_1.response_time_list
   end
 
   def test_average_response
     db_mock
 
     url_1 = Url.find_by(address: "http://jumpstartlab.com/blog")
-    assert_equal 47, Url.average_response(url_1.id)
+    assert_equal 47, url_1.average_response
   end
 
   def test_returns_all_verbs_associated_with_url
@@ -68,7 +68,7 @@ class UrlTest < Minitest::Test
 
     url_1 = Url.find_by(address: "http://jumpstartlab.com/blog")
     expected = ["http://jumpstartlab.com/apply", "http://jumpstartlab.com"]
-    assert_equal expected , Url.top_three_referrers(url_1.id)
+    assert_equal expected , url_1.top_three_referrers
   end
 
   def test_returns_top_three_user_agents
@@ -76,7 +76,7 @@ class UrlTest < Minitest::Test
 
     url_1 = Url.find_by(address: "http://apple.com/buy")
     expected = ["OS: Macintosh%3B Intel Mac OS X 10_8_2 || Browser: Chrome", "OS: Windows || Browser: Internet Explorer"]
-    assert_equal expected, Url.top_three_user_agents(url_1.id)
+    assert_equal expected, url_1.top_three_user_agents
   end
 
 end
