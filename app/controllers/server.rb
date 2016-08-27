@@ -67,6 +67,7 @@ module RushHour
           root_url = Client.find_by(identifier: params[:identifier]).root_url
           @url = Url.find_by(address: root_url+"/"+params[:relativepath])
           @identifier = params[:identifier]
+          @relativepath = params[:relativepath]
           status 200
           erb :url_dashboard
         else

@@ -1,4 +1,11 @@
-<h1><%=@identifier.capitalize%> URL Dashboard</h1>
+<center>
+<h1><%=@identifier.capitalize%> <%=  @relativepath.capitalize%> Dashboard</h1>
 
-<h1><%= @url.max_response %></h1>
-<h1><%= @url.min_response %></h1>
+<h2>Max Response Time: <%= @url.max_response %></h2>
+<h2>Min Response Time: <%= @url.min_response %></h2>
+<h2>Response Time List: <%= @url.response_time_list %></h2>
+<h2>Average Response Time: <%= @url.average_response %></h2>
+<h2>Associated HTTP Verbs: <%= @url.http_verbs %></h2>
+<h2>Three Most Popular Referrers: <%= @url.top_three_referrers %></h2>
+<h2>Three Most Popular UserAgents: <%= @url.top_three_user_agents %></h2>
+</center>

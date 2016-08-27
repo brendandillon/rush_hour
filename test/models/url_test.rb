@@ -68,7 +68,7 @@ class UrlTest < Minitest::Test
 
     url_1 = Url.find_by(address: "http://jumpstartlab.com/blog")
     expected = ["http://jumpstartlab.com/apply", "http://jumpstartlab.com"]
-    assert_equal expected , Url.top_three_referrers(url_1.id)
+    assert_equal expected , url_1.top_three_referrers
   end
 
   def test_returns_top_three_user_agents
@@ -76,7 +76,7 @@ class UrlTest < Minitest::Test
 
     url_1 = Url.find_by(address: "http://apple.com/buy")
     expected = ["OS: Macintosh%3B Intel Mac OS X 10_8_2 || Browser: Chrome", "OS: Windows || Browser: Internet Explorer"]
-    assert_equal expected, Url.top_three_user_agents(url_1.id)
+    assert_equal expected, url_1.top_three_user_agents
   end
 
 end
