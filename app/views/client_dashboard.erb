@@ -1,12 +1,12 @@
 <center>
-<h1><%=@identifier.capitalize%> Dashboard</h1>
-<h2>Average Response Time All Requests: <%=@payloadrequest.where(client_id: @client_id).avg_response_all %></h2>
-<h2>Max Response Time Across All Requests: <%=@payloadrequest.where(client_id: @client_id).max_response_all %></h2>
-<h2>Max Response Time Across All Requests: <%=@payloadrequest.where(client_id: @client_id).max_response_all %></h2>
-<h2>Most Frequent Request Type: <%=@payloadrequest.where(client_id: @client_id).most_frequent_request_type %></h2>
-<h2>List of All The HTTP Verbs Used: <%=@payloadrequest.where(client_id: @client_id).list_all_verbs.uniq %></h2>
-<h2>Most to Least Requested URLs: <%=@payloadrequest.where(client_id: @client_id).all_urls_most_to_least_requested %></h2>
-<h2>Web Browser Breakdown Across All Requests: <%=@payloadrequest.where(client_id: @client_id).browser_use_across_requests %></h2>
-<h2>OS Breakdown Across All Requests: <%=@payloadrequest.where(client_id: @client_id).operating_system_use_across_requests %></h2>
-<h2>Resolution Across All Requests: <%=@payloadrequest.where(client_id: @client_id).resolution_across_requests %></h2>
+<h1><%=@client.identifier.capitalize%> Dashboard</h1>
+<h2>Average Response Time All Requests: <%=@payloadrequest.where(client_id: @client.id).avg_response_all %></h2>
+<h2>Max Response Time Across All Requests: <%=@payloadrequest.where(client_id: @client.id).max_response_all %></h2>
+<h2>Max Response Time Across All Requests: <%=@payloadrequest.where(client_id: @client.id).max_response_all %></h2>
+<h2>Most Frequent Request Type: <%=@payloadrequest.where(client_id: @client.id).most_frequent_request_type %></h2>
+<h2>List of All The HTTP Verbs Used: <%=@payloadrequest.where(client_id: @client.id).list_all_verbs.uniq %></h2>
+<h2>Most to Least Requested URLs: <%=@payloadrequest.where(client_id: @client.id).all_urls_most_to_least_requested %></h2>
+<h2>Web Browser Breakdown Across All Requests: <%=@payloadrequest.where(client_id: @client.id).browser_use_across_requests %></h2>
+<h2>OS Breakdown Across All Requests: <%=@payloadrequest.where(client_id: @client.id).operating_system_use_across_requests %></h2>
+<h2>Resolution Across All Requests: <%=@payloadrequest.where(client_id: @client.id).resolution_across_requests %></h2>
 </center>
