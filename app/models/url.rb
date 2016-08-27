@@ -4,6 +4,7 @@ class Url < ActiveRecord::Base
   validates :address, presence: true
   validates :address, uniqueness: true
   has_many :payload_requests
+  has_many :referred_bies, through: :payload_requests
   has_many :request_types, through: :payload_requests
 
   def max_response
@@ -27,7 +28,7 @@ class Url < ActiveRecord::Base
   end
 
   def top_three_referrers
-      payload_requests.joins(:referred_by).group(:address).
+      referred_bies.group(:address).
       order("count_id desc").limit(3).count("id").keys
   end
 
