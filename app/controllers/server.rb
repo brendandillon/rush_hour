@@ -1,4 +1,3 @@
-require "pry"
 module RushHour
   class Server < Sinatra::Base
 
@@ -100,6 +99,6 @@ module RushHour
         halt body "Payload already received"
       end
     end
-  end
 
+  end
 end

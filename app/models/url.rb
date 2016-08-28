@@ -1,8 +1,7 @@
-require 'pry'
 class Url < ActiveRecord::Base
-
   validates :address, presence: true
   validates :address, uniqueness: true
+
   has_many :payload_requests
   has_many :referred_bies, through: :payload_requests
   has_many :request_types, through: :payload_requests

@@ -26,8 +26,9 @@ class PayloadRequestTest < Minitest::Test
 
   def test_it_has_a_requested_at_time
     pr = create_payload_request
-    result = "2013-02-16 21:38:28 -0700"
-    assert_equal result, pr.requested_at
+
+    expected = "2013-02-16 21:38:28 -0700"
+    assert_equal expected, pr.requested_at
   end
 
   def test_it_has_a_responded_in_value
@@ -37,58 +38,50 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_validates_responded_in
-    pr = PayloadRequest.create(
-    requested_at:"2013-02-16 21:38:28 -0700",
-    )
+    pr = PayloadRequest.create(requested_at:"2013-02-16 21:38:28 -0700",)
+
     refute pr.valid?
   end
 
   def test_validates_requested_at
-    pr = PayloadRequest.create(
-    responded_in:37,
-    )
+    pr = PayloadRequest.create(responded_in:37,)
+
     refute pr.valid?
   end
 
   def test_validates_url_id
-    pr = PayloadRequest.create(
-    responded_in:37,
-    )
+    pr = PayloadRequest.create(responded_in:37,)
+
     refute pr.valid?
   end
 
   def test_validates_referred_by_id
-    pr = PayloadRequest.create(
-    responded_in:37,
-    )
+    pr = PayloadRequest.create(responded_in:37,)
+
     refute pr.valid?
   end
 
   def test_validates_request_type_id
-    pr = PayloadRequest.create(
-    responded_in:37,
-    )
+    pr = PayloadRequest.create(responded_in:37,)
+
     refute pr.valid?
   end
 
   def test_validates_user_agent_id
-    pr = PayloadRequest.create(
-    responded_in:37,
-    )
+    pr = PayloadRequest.create(responded_in:37,)
+
     refute pr.valid?
   end
 
   def test_validates_resolution_id
-    pr = PayloadRequest.create(
-    responded_in:37,
-    )
+    pr = PayloadRequest.create(responded_in:37,)
+
     refute pr.valid?
   end
 
   def test_validates_ip_id
-    pr = PayloadRequest.create(
-    responded_in:37,
-    )
+    pr = PayloadRequest.create(responded_in:37,)
+
     refute pr.valid?
   end
 
@@ -129,6 +122,7 @@ class PayloadRequestTest < Minitest::Test
     Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
     to_fill
     pr = PayloadRequest.fill_tables(to_fill)
+
     assert_equal "http://jumpstartlab.com/blog", Url.find(pr.url_id).address
     assert_equal "63.29.38.211", IP.find(pr.ip_id).address
     assert_equal "http://jumpstartlab.com", ReferredBy.find(pr.referred_by_id).address
@@ -170,11 +164,12 @@ class PayloadRequestTest < Minitest::Test
   def test_it_validates_for_duplicates
     Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
     to_fill
-
     PayloadRequest.fill_tables(to_fill)
+
     assert PayloadRequest.exists?(1)
     pr = PayloadRequest.fill_tables(to_fill)
     refute PayloadRequest.exists?(2)
+
     assert_equal nil, pr
   end
 
