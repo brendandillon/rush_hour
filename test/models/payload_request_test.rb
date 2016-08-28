@@ -111,7 +111,7 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def to_fill
-    to_fill = {
+    {
       url:"http://jumpstartlab.com/blog",
       requested_at:"2013-02-16 21:38:28 -0700",
       responded_in:37,
