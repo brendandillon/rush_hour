@@ -1,7 +1,9 @@
+require "pry"
 module RushHour
   class Server < Sinatra::Base
+
     not_found do
-      erb :'errors/missing_page'
+      erb :'errors/missing_page', :layout => false
     end
 
     post '/sources' do
