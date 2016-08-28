@@ -1,4 +1,3 @@
-require 'pry'
 class PayloadRequest < ActiveRecord::Base
   validates :requested_at, presence: true
   validates :responded_in, presence: true
@@ -40,28 +39,36 @@ class PayloadRequest < ActiveRecord::Base
 
   def self.list_all_verbs
     PayloadRequest.joins(:request_type).pluck(:verb)
-  end 
+  end
 
   def self.fill_tables(data)
     user_agent = UserAgent.parse(data[:user_agent])
-    ip_from_data = IP.find_or_create_by(address: data[:ip]).id
-    referred_by_from_data = ReferredBy.find_or_create_by(address: data[:referred_by]).id
-    url_from_data = Url.find_or_create_by(address: data[:url]).id
-    request_type_from_data = RequestType.find_or_create_by(verb: data[:request_type]).id
-    resolution_from_data = Resolution.find_or_create_by(resolution_width: data[:resolution_width], resolution_height: data[:resolution_height]).id
-    os_and_browser_from_data = OsAndBrowser.find_or_create_by(operating_system: user_agent.platform, browser: user_agent.browser).id
-    client_from_data = Client.find_by(identifier: data[:client]).id
+    ip = IP.find_or_create_by(address: data[:ip]).id
+    referred_by = ReferredBy.find_or_create_by(address: data[:referred_by]).id
+    url = Url.find_or_create_by(address: data[:url]).id
+    request_type = RequestType.find_or_create_by(verb: data[:request_type]).id
+    resolution = Resolution.find_or_create_by(resolution_width: data[:resolution_width],resolution_height: data[:resolution_height]).id
+    os_and_browser = OsAndBrowser.find_or_create_by(operating_system: user_agent.platform,browser: user_agent.browser).id
+    client = Client.find_by(identifier: data[:client]).id
+    assign_to_payloadrequest(user_agent, ip, referred_by,url,request_type, resolution,os_and_browser, client, data)
+  end
+
+  def self.assign_to_payloadrequest(user_agent, ip, referred_by,url,request_type, resolution,os_and_browser, client, data)
     payloadrequest ={
-      ip_id: ip_from_data,
-      referred_by_id: referred_by_from_data,
-      url_id: url_from_data,
-      request_type_id: request_type_from_data,
-      resolution_id: resolution_from_data,
+      ip_id: ip,
+      referred_by_id: referred_by,
+      url_id: url,
+      request_type_id: request_type,
+      resolution_id: resolution,
       requested_at: data[:requested_at],
       responded_in: data[:responded_in],
-      os_and_browser_id: os_and_browser_from_data,
-      client_id: client_from_data
-    }
+      os_and_browser_id: os_and_browser,
+      client_id: client}
+
+      payload_request_checker(payloadrequest)
+  end
+
+  def self.payload_request_checker(payloadrequest)
     if PayloadRequest.find_by(payloadrequest)
       return nil
     else
