@@ -1,12 +1,19 @@
-<center>
-<h1><%=@client.identifier.capitalize%> Dashboard</h1>
-<h2>Average Response Time All Requests: <%=@payloadrequest.where(client_id: @client.id).avg_response_all %></h2>
-<h2>Max Response Time Across All Requests: <%=@payloadrequest.where(client_id: @client.id).max_response_all %></h2>
-<h2>Max Response Time Across All Requests: <%=@payloadrequest.where(client_id: @client.id).max_response_all %></h2>
-<h2>Most Frequent Request Type: <%=@payloadrequest.where(client_id: @client.id).most_frequent_request_type %></h2>
-<h2>List of All The HTTP Verbs Used: <%=@payloadrequest.where(client_id: @client.id).list_all_verbs.uniq %></h2>
-<h2>Most to Least Requested URLs: <%=@payloadrequest.where(client_id: @client.id).all_urls_most_to_least_requested %></h2>
-<h2>Web Browser Breakdown Across All Requests: <%=@payloadrequest.where(client_id: @client.id).browser_use_across_requests %></h2>
-<h2>OS Breakdown Across All Requests: <%=@payloadrequest.where(client_id: @client.id).operating_system_use_across_requests %></h2>
-<h2>Resolution Across All Requests: <%=@payloadrequest.where(client_id: @client.id).resolution_across_requests %></h2>
-</center>
+<div class=" jumbotron stats_header">
+  <h1><%=@client.identifier.capitalize%> Dashboard</h1>
+</div>
+
+<div class="stats_body">
+  <div class="row">
+    <div class="well">
+      <b>  &#9733 Average Response Time All Requests &#x21F0 </b><%=@payloadrequest.where(client_id: @client.id).avg_response_all %></br>
+      <b>  &#9733 Max Response Time Across All Requests &#x21F0 </b><%=@payloadrequest.where(client_id: @client.id).max_response_all %></br>
+      <b>  &#9733 Max Response Time Across All Requests &#x21F0 </b><%=@payloadrequest.where(client_id: @client.id).max_response_all %></br>
+      <b>  &#9733 Most Frequent Request Type &#x21F0 </b><%=@payloadrequest.where(client_id: @client.id).most_frequent_request_type %></br>
+      <b>  &#9733 List of All The HTTP Verbs Used &#x21F0 </b><%=@payloadrequest.where(client_id: @client.id).list_all_verbs.uniq %></br>
+      <b>  &#9733 Most to Least Requested URLs &#x21F0 </b><%=@payloadrequest.where(client_id: @client.id).all_urls_most_to_least_requested %></br>
+      <b>  &#9733 Web Browser Breakdown Across All Requests &#x21F0 </b><%=@payloadrequest.where(client_id: @client.id).browser_use_across_requests %></br>
+      <b>  &#9733 OS Breakdown Across All Requests &#x21F0 </b><%=@payloadrequest.where(client_id: @client.id).operating_system_use_across_requests %></br>
+      <b>  &#9733 Resolution Across All Requests &#x21F0 </b><%=@payloadrequest.where(client_id: @client.id).resolution_across_requests %></br>
+    </div>
+  </div>
+</div>

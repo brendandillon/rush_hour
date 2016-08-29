@@ -2,7 +2,7 @@ module RushHour
   class Server < Sinatra::Base
 
     not_found do
-      erb :'errors/missing_page', :layout => false
+      erb :'errors/missing_page'
     end
 
     post '/sources' do
