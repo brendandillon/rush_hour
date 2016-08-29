@@ -11,7 +11,7 @@ class ClientDisplayStatsForSpecificUrlTest < FeatureTest
     within('body') do
       assert page.has_content?("Jumpstartlab Blog Dashboard")
       assert page.has_content?("Three Most Popular Referrers")
-      assert page.has_content?("Three Most Popular UserAgents:")
+      assert page.has_content?("Three Most Popular UserAgents")
     end
   end
 

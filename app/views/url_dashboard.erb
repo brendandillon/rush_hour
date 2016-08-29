@@ -1,11 +1,17 @@
-<center>
-<h1><%= @client.identifier.capitalize %> <%=  @relativepath.capitalize%> Dashboard</h1>
+<div class=" jumbotron stats_header">
+  <h1><%= @client.identifier.capitalize %> <%=  @relativepath.capitalize%> Dashboard</h1>
+</div>
 
-<h2>Max Response Time: <%= @url.max_response %></h2>
-<h2>Min Response Time: <%= @url.min_response %></h2>
-<h2>Response Time List: <%= @url.response_time_list %></h2>
-<h2>Average Response Time: <%= @url.average_response %></h2>
-<h2>Associated HTTP Verbs: <%= @url.http_verbs %></h2>
-<h2>Three Most Popular Referrers: <%= @url.top_three_referrers %></h2>
-<h2>Three Most Popular UserAgents: <%= @url.top_three_user_agents %></h2>
-</center>
+<div  class="stats_body">
+  <div class="row">
+    <div class="well">
+      <b>   &#9733 Max Response Time &#x21F0 </b><%= @url.max_response %></br>
+      <b>   &#9733 Min Response Time &#x21F0 </b><%= @url.min_response %></br>
+      <b>   &#9733 Response Time List &#x21F0 </b><%= @url.response_time_list %></br>
+      <b>   &#9733 Average Response Time &#x21F0 </b><%= @url.average_response %></br>
+      <b>   &#9733 Associated HTTP Verbs &#x21F0 </b><%= @url.http_verbs %></br>
+      <b>   &#9733 Three Most Popular Referrers &#x21F0 </b><%= @url.top_three_referrers %></br>
+      <b>   &#9733 Three Most Popular UserAgents &#x21F0 </b><%= @url.top_three_user_agents %></br>
+    </div>
+  </div>
+</div>
