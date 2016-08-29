@@ -39,6 +39,7 @@ class ClientTest < Minitest::Test
     client = Client.create(
       root_url:"google.com"
     )
+
     refute client.valid?
   end
 
@@ -46,6 +47,7 @@ class ClientTest < Minitest::Test
     client = Client.create(
       identifier:"google.com"
     )
+    
     refute client.valid?
   end
 

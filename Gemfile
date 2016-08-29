@@ -15,6 +15,7 @@ group :development, :test do
   gem 'rack-test'
   gem 'pry'
   gem 'rake'
+  gem 'simplecov'
 end
 
 group :test do
